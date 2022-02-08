@@ -2,7 +2,8 @@ import './App.scss'
 import Home from './shared/Home'
 import Navbar from './shared/Navbar'
 import Error from './shared/Error'
-import Cezar from './components/cezar/Cezar'
+import Cezar from './components/Cezar'
+import Polybius from './components/Polybius'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -10,13 +11,14 @@ function App() {
 		<Router>
 			<div className='App'>
 				<Navbar />
-				<div className='content'>
+				<>
 					<Routes>
-						<Route path='/' element={<Home />} />
+						<Route path='/' element={<Cezar />} />
 						<Route path='/cezar' element={<Cezar />} />
+						<Route path='/polybius' element={<Polybius />} />
 						<Route path='*' element={<Error />} />
 					</Routes>
-				</div>
+				</>
 			</div>
 		</Router>
 	)

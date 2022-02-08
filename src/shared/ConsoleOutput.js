@@ -3,9 +3,10 @@ import React from 'react'
 const ConsoleOutput = ({ encryptedWord }) => {
 	return (
 		<>
-			{!encryptedWord.id || (
-				<div className='console-output-single'>
+			{!encryptedWord.encryptedText || (
+				<article className='console-output-single'>
 					<p>Text input: {encryptedWord.textToEncrypt}</p>
+					<p>Final filtered text: {encryptedWord.filteredText}</p>
 					<p>Encryption key: {encryptedWord.encryptionKey}</p>
 					<p>
 						Action: {encryptedWord.isDecrypted ? 'decryption' : 'encryption'}
@@ -16,7 +17,7 @@ const ConsoleOutput = ({ encryptedWord }) => {
 							: 'Encrypted word: '}
 						{encryptedWord.encryptedText}
 					</h4>
-				</div>
+				</article>
 			)}
 		</>
 	)

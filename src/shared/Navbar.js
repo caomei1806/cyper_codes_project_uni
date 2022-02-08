@@ -11,11 +11,16 @@ const Navbar = () => {
 			<ul>
 				<Link
 					to='/cezar'
-					className={currentSite[1] === 'cezar' ? 'active' : ''}
+					className={currentSite[1] === 'cezar' ? 'active link' : 'link'}
 				>
-					cezar
+					caesar
 				</Link>
-				<li>cezar2</li>
+				<Link
+					to='/polybius'
+					className={currentSite[1] === 'polybius' ? 'active link' : 'link'}
+				>
+					Polybius square
+				</Link>
 				<li>cezar3</li>
 				<li>cezar4</li>
 				<li>cezar5</li>
