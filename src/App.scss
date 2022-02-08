@@ -1,0 +1,92 @@
+$dark: #252323;
+$semi-dark: #70798c;
+$background: #f5f1ed;
+$primary: #a99985;
+$secondary: #ce9c41;
+$grey-beige: rgb(247, 247, 247);
+body {
+	background-color: $background;
+}
+.navbar {
+	background-color: $semi-dark;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	padding: 1rem 10rem;
+	color: $dark;
+
+	ul {
+		list-style: none;
+		display: flex;
+		justify-content: space-between;
+		gap: 20px;
+	}
+}
+.content {
+	padding: 5rem 10rem;
+	display: flex;
+	justify-content: space-between;
+
+	.form-control {
+		background-color: $grey-beige;
+		padding: 2rem;
+	}
+	.form {
+		display: flex;
+		flex-direction: column;
+	}
+	.btn {
+		background-color: $primary;
+		padding: 3px 9px;
+		border: 2px solid rgb(219, 183, 131);
+		margin-top: 1rem;
+		font-weight: 600;
+	}
+	.input-section {
+		display: flex;
+		flex-direction: column;
+		label {
+			font-size: 0.85rem;
+		}
+		#isDecrypted {
+			cursor: pointer;
+			filter: grayscale(100%);
+		}
+		.input {
+			border: 0;
+			border-bottom: 2px solid $primary;
+			border-right: 2px solid $primary;
+			box-shadow: 3px 3px rgb(168, 167, 167);
+			padding: 3px 3px;
+			margin-top: 0.2rem;
+			margin-bottom: 1rem;
+			min-width: 200px;
+			&:focus {
+				outline: none;
+			}
+			&:checked {
+				background-color: $primary;
+				fill: $secondary;
+			}
+		}
+	}
+}
+.console {
+	padding: 1rem 1rem;
+	background-color: rgb(216, 213, 206);
+	min-width: 60%;
+	max-height: 400px;
+	.console-output {
+		background-color: $background;
+		width: calc(100% - 4rem);
+		height: calc(100% - 2rem);
+		padding: 1rem 2rem;
+		overflow: scroll;
+		&-single {
+			margin-top: 10px;
+			p {
+				font-size: 0.8rem;
+			}
+		}
+	}
+}
