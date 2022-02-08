@@ -20,6 +20,14 @@ body {
 		display: flex;
 		justify-content: space-between;
 		gap: 20px;
+		.active {
+			color: $secondary;
+			text-decoration: none;
+		}
+		li:hover {
+			color: $background;
+			cursor: pointer;
+		}
 	}
 }
 .content {
@@ -68,7 +76,17 @@ body {
 				background-color: $primary;
 				fill: $secondary;
 			}
+			&.error {
+				border-color: rgb(165, 28, 28);
+				box-shadow: 3px 3px rgb(165, 28, 28);
+			}
 		}
+	}
+	.modal {
+		font-size: 0.8rem;
+		background-color: $semi-dark;
+		padding: 0.5rem;
+		margin-top: 1rem;
 	}
 }
 .console {
