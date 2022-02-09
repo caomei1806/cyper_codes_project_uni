@@ -10,22 +10,24 @@ const Homofonic = () => {
 	const [isModalShown, setIsModalShown] = useState(false)
 	const [encryptionNumbers, setEncryptionNumbers] = useState([])
 
+	let numbersSet = [...numbers]
+	let encryptionNumbersSet = [[]]
+
 	const randomizeEncryptionNumbers = (letter) => {
-		let encryptionNumbersSet = []
-		let numbersSet = numbers
 		let encryptionNumberAmount = Math.floor(Math.random() * 3 + 1)
 		let letterNos = []
 		for (let letterNo = 0; letterNo < encryptionNumberAmount; letterNo++) {
-			let newEncryptionNumber = Math.floor(
-				Math.random() * (numbersSet.length - 1) + 0
-			)
+			const max = numbersSet.length
+			let newEncryptionNumber = Math.floor(Math.random() * max)
 			letterNos.push(numbersSet[newEncryptionNumber])
-			numbersSet.pop(numbersSet[newEncryptionNumber])
-			console.log(numbersSet[newEncryptionNumber])
+			const a = numbersSet.filter(
+				(no) => no !== numbersSet[newEncryptionNumber]
+			)
+			numbersSet = a
+			console.log('n' + numbersSet[newEncryptionNumber] + '\n' + numbersSet)
 		}
-		encryptionNumbersSet[letter] = letterNos
-		setEncryptionNumbers(encryptionNumbersSet)
-		return encryptionNumbersSet
+
+		return letterNos
 	}
 
 	const drawEncryptionTable = () => {
@@ -36,7 +38,9 @@ const Homofonic = () => {
 			const th = document.createElement('th')
 			th.innerHTML = letter
 			const td = document.createElement('td')
-			td.innerHTML = randomizeEncryptionNumbers(index)
+			const delay = randomizeEncryptionNumbers()
+
+			td.innerHTML = delay
 			tr.appendChild(th)
 			tr.appendChild(td)
 			table.appendChild(tr)

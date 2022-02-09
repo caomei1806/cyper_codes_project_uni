@@ -139,3 +139,15 @@ body {
 		}
 	}
 }
+.encryptionTable {
+	margin-left: 2rem;
+	th,
+	td {
+		border-bottom: 1px solid $dark;
+	}
+	table {
+		width: 90%;
+		border-collapse: collapse;
+		text-align: center;
+	}
+}
