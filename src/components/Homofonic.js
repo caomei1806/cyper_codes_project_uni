@@ -64,6 +64,20 @@ const Homofonic = () => {
 				else encryptedWord += no[letterIndex] + ','
 			})
 			encryptedWord = encryptedWord.slice(0, -1).replace(/,/g, ' ')
+		} else {
+			textForEncryption.split(',').forEach((number) => {
+				let letter = ''
+				no.map((noSet, index) => {
+					//console.log(noSet, index)
+					noSet.map((noSetSingle) => {
+						if (parseInt(number) === noSetSingle) {
+							letter = alphabet[index]
+						}
+					})
+				})
+
+				encryptedWord += letter
+			})
 		}
 		return encryptedWord
 	}
@@ -89,18 +103,20 @@ const Homofonic = () => {
 			}
 		}
 		if (!isTextError) {
-			const encryptedWord = {
-				id: new Date().getTime().toString(),
-				textToEncrypt,
-				encryptedText: handleEncryption(filteredText),
-				isDecrypted,
-				filteredText,
-			}
-			setEncryptedWords((encryptedWords) => {
-				return [...encryptedWords, encryptedWord]
-			})
+			if ((isDecrypted && filteredText.length % 3 === 0) || !isDecrypted) {
+				const encryptedWord = {
+					id: new Date().getTime().toString(),
+					textToEncrypt,
+					encryptedText: handleEncryption(filteredText),
+					isDecrypted,
+					filteredText,
+				}
+				setEncryptedWords((encryptedWords) => {
+					return [...encryptedWords, encryptedWord]
+				})
 
-			setTextToEncrypt('')
+				setTextToEncrypt('')
+			}
 		}
 	}
 
