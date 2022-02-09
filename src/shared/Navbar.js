@@ -21,7 +21,12 @@ const Navbar = () => {
 				>
 					Polybius square
 				</Link>
-				<li>cezar3</li>
+				<Link
+					to='/homofonic'
+					className={currentSite[1] === 'homofonic' ? 'active link' : 'link'}
+				>
+					homofonic
+				</Link>
 				<li>cezar4</li>
 				<li>cezar5</li>
 			</ul>

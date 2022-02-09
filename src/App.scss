@@ -25,11 +25,11 @@ body {
 			color: $dark;
 			text-decoration: none;
 			&:hover {
-				color: $background;
+				color: $secondary;
 				cursor: pointer;
 			}
 			&.active {
-				color: $secondary;
+				color: $background;
 				text-decoration: none;
 			}
 		}
@@ -43,6 +43,8 @@ body {
 	.form-control {
 		background-color: $grey-beige;
 		padding: 2rem;
+		height: fit-content;
+		max-height: 400px;
 	}
 	.form {
 		display: flex;
