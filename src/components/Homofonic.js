@@ -8,10 +8,10 @@ const Homofonic = () => {
 	const [isDecrypted, setIsDecrypted] = useState(false)
 	const [isTextError, setIsTextError] = useState(false)
 	const [isModalShown, setIsModalShown] = useState(false)
-	const [encryptionNumbers, setEncryptionNumbers] = useState([])
+	const [no, setNo] = useState([])
 
 	let numbersSet = [...numbers]
-	let encryptionNumbersSet = [[]]
+	let encryptionNumbersSet = []
 
 	const randomizeEncryptionNumbers = (letter) => {
 		let encryptionNumberAmount = Math.floor(Math.random() * 3 + 1)
@@ -24,7 +24,6 @@ const Homofonic = () => {
 				(no) => no !== numbersSet[newEncryptionNumber]
 			)
 			numbersSet = a
-			console.log('n' + numbersSet[newEncryptionNumber] + '\n' + numbersSet)
 		}
 
 		return letterNos
@@ -38,13 +37,15 @@ const Homofonic = () => {
 			const th = document.createElement('th')
 			th.innerHTML = letter
 			const td = document.createElement('td')
-			const delay = randomizeEncryptionNumbers()
+			const noSet = randomizeEncryptionNumbers()
+			encryptionNumbersSet.push(noSet)
 
-			td.innerHTML = delay
+			td.innerHTML = noSet
 			tr.appendChild(th)
 			tr.appendChild(td)
 			table.appendChild(tr)
 		})
+		setNo(encryptionNumbersSet)
 		encryptionTable.appendChild(table)
 	}
 
@@ -52,8 +53,55 @@ const Homofonic = () => {
 		drawEncryptionTable()
 	}, [])
 
+	const handleEncryption = (textForEncryption) => {
+		let encryptedWord = ''
+		if (!isDecrypted) {
+			textForEncryption.split('').forEach((letter) => {
+				const letterIndex = alphabet.indexOf(letter)
+				let noPosition = Math.floor(Math.random() * no[letterIndex].length + 0)
+				if (no[letterIndex].length !== 0)
+					encryptedWord += no[letterIndex][noPosition] + ','
+				else encryptedWord += no[letterIndex] + ','
+			})
+			encryptedWord = encryptedWord.slice(0, -1).replace(/,/g, ' ')
+		}
+		return encryptedWord
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		if (textToEncrypt === '') {
+			setIsTextError(true)
+		}
+		let filteredText = ''
+		if (!isDecrypted) {
+			filteredText = textToEncrypt
+				.replace(/[^a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+/, '')
+				.toLowerCase()
+		} else {
+			const ex = `[^0-9]`
+			const regex = new RegExp(ex, 'g')
+			filteredText = textToEncrypt.replace(regex, '')
+			if (filteredText.length % 3 !== 0) {
+				setIsTextError(true)
+			} else {
+				filteredText = filteredText.match(/.{1,3}/g).join(',')
+			}
+		}
+		if (!isTextError) {
+			const encryptedWord = {
+				id: new Date().getTime().toString(),
+				textToEncrypt,
+				encryptedText: handleEncryption(filteredText),
+				isDecrypted,
+				filteredText,
+			}
+			setEncryptedWords((encryptedWords) => {
+				return [...encryptedWords, encryptedWord]
+			})
+
+			setTextToEncrypt('')
+		}
 	}
 
 	return (
