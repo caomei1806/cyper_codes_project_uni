@@ -102,9 +102,9 @@ const Polybius = () => {
 		//
 		let filteredText = ''
 		if (!isDecrypted) {
-			filteredText = textToEncrypt
-				.replace(/[^a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+/, '')
-				.toLowerCase()
+			const ex = `[^a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]`
+			const regex = new RegExp(ex, 'g')
+			filteredText = textToEncrypt.replace(regex, '').toLowerCase()
 		} else {
 			const ex = `[^1-${encryptionKey}]`
 			const regex = new RegExp(ex, 'g')
@@ -132,32 +132,38 @@ const Polybius = () => {
 		}
 
 		if (!isTextError && !isKeyError && filteredText.length > 0) {
-			drawCheckboard()
-			const encryptedWord = {
-				id: new Date().getTime().toString(),
-				textToEncrypt,
-				encryptionKey,
-				encryptedText: handleEncryption(
-					filteredText,
+			console.log(filteredText.length + filteredText.replace(' ', ''))
+			if (
+				(isDecrypted && filteredText.replace(' ', '').length % 2 == 0) ||
+				!isDecrypted
+			) {
+				drawCheckboard()
+				const encryptedWord = {
+					id: new Date().getTime().toString(),
+					textToEncrypt,
 					encryptionKey,
-					isDecrypted
-				),
-				isDecrypted,
-				filteredText,
-			}
-			setEncryptedWords((encryptedWords) => {
-				return [...encryptedWords, encryptedWord]
-			})
+					encryptedText: handleEncryption(
+						filteredText,
+						encryptionKey,
+						isDecrypted
+					),
+					isDecrypted,
+					filteredText,
+				}
+				setEncryptedWords((encryptedWords) => {
+					return [...encryptedWords, encryptedWord]
+				})
 
-			setTextToEncrypt('')
-			setEncryptionKey('')
-		}
-		if (
-			textToEncrypt.length !== filteredText.length &&
-			filteredText.length % 2 === 0 &&
-			filteredText.length !== 0
-		) {
-			setIsModalFilterShown(true)
+				setTextToEncrypt('')
+				setEncryptionKey('')
+			}
+			if (
+				textToEncrypt.length !== filteredText.length &&
+				filteredText.length % 2 === 0 &&
+				filteredText.length !== 0
+			) {
+				setIsModalFilterShown(true)
+			}
 		}
 	}
 	return (
